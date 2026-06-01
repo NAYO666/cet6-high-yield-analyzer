@@ -1,0 +1,77 @@
+{
+  "$schema": "../schemas/question_analysis.schema.json",
+  "project": "CET-6 High-Yield Analyzer",
+  "sample_type": "fictional_public_example",
+  "question_id": "sample-1",
+  "section_type": "reading_multiple_choice",
+  "source": {
+    "origin": "mock",
+    "copyright_status": "fictional",
+    "user_provided": false
+  },
+  "question": {
+    "stem": "What does the passage suggest about effective vocabulary review?",
+    "options": {
+      "A": "Students should memorize every word before reading.",
+      "B": "Words are easier to remember when reviewed with context.",
+      "C": "Exam questions never require vocabulary knowledge.",
+      "D": "Long word lists are always more useful than short notes."
+    },
+    "answer": "B"
+  },
+  "analysis": {
+    "evidence": [
+      {
+        "text": "students who review words in context often remember them longer",
+        "supports_option": "B",
+        "evidence_type": "direct"
+      }
+    ],
+    "high_yield_items": [
+      {
+        "text": "in context",
+        "role": "paraphrase_bridge",
+        "why_it_matters": "Connects the option to the passage evidence."
+      },
+      {
+        "text": "remember them longer",
+        "role": "answer_result",
+        "why_it_matters": "Explains why context-based review is effective."
+      }
+    ],
+    "paraphrases": [
+      {
+        "source_text": "review words in context",
+        "question_or_option_text": "reviewed with context",
+        "note": "Same review method expressed with a different grammatical form."
+      },
+      {
+        "source_text": "remember them longer",
+        "question_or_option_text": "easier to remember",
+        "note": "Same result expressed more generally."
+      }
+    ],
+    "logic_signals": [
+      {
+        "text": "However",
+        "function": "contrast",
+        "note": "Signals that the passage contrasts long word lists with context-based review."
+      }
+    ],
+    "distractor_traps": [
+      {
+        "option": "D",
+        "trap_type": "surface_overlap",
+        "why_it_is_tempting": "It repeats the phrase long word lists.",
+        "why_it_fails": "The passage contrasts long lists with a more useful context-based method."
+      }
+    ],
+    "low_vocab_path": [
+      "Find the repeated topic word: review.",
+      "Match context in the option with context in the passage.",
+      "Use However to avoid choosing the surface-overlap distractor."
+    ],
+    "review_status": "mock_approved"
+  }
+}
+

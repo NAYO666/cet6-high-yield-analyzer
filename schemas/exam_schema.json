@@ -1,0 +1,155 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CET-6 Milestone 1 Sample Schema",
+  "type": "object",
+  "required": ["meta", "writing", "listening", "reading", "translation", "validation"],
+  "additionalProperties": false,
+  "$defs": {
+    "optionSet": {
+      "type": "object",
+      "required": ["A", "B", "C", "D"],
+      "additionalProperties": false,
+      "properties": {
+        "A": { "type": "string", "minLength": 1 },
+        "B": { "type": "string", "minLength": 1 },
+        "C": { "type": "string", "minLength": 1 },
+        "D": { "type": "string", "minLength": 1 }
+      }
+    },
+    "choiceQuestion": {
+      "type": "object",
+      "required": ["q_num", "question", "options", "correct_answer_from_keys"],
+      "additionalProperties": true,
+      "properties": {
+        "q_num": { "type": "integer" },
+        "question": { "type": ["string", "null"] },
+        "options": { "$ref": "#/$defs/optionSet" },
+        "correct_answer_from_keys": { "type": "string", "pattern": "^[A-D]$" }
+      }
+    },
+    "keyOnlyQuestion": {
+      "type": "object",
+      "required": ["q_num", "correct_answer_from_keys"],
+      "additionalProperties": true,
+      "properties": {
+        "q_num": { "type": "integer" },
+        "correct_answer_from_keys": { "type": "string", "pattern": "^[A-O]$" }
+      }
+    },
+    "matchingQuestion": {
+      "type": "object",
+      "required": ["q_num", "statement", "correct_answer_from_keys"],
+      "additionalProperties": true,
+      "properties": {
+        "q_num": { "type": "integer" },
+        "statement": { "type": "string", "minLength": 1 },
+        "correct_answer_from_keys": { "type": "string", "pattern": "^[A-O]$" }
+      }
+    }
+  },
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "exam_id",
+        "year",
+        "month",
+        "set_number",
+        "exam_type",
+        "source_pdf_paper",
+        "source_pdf_answer",
+        "source_text_paper",
+        "source_text_answer",
+        "parsed_at",
+        "parser_version"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "exam_id": { "const": "2025_06_set1" },
+        "year": { "const": 2025 },
+        "month": { "const": 6 },
+        "set_number": { "const": 1 },
+        "exam_type": { "const": "CET-6" }
+      }
+    },
+    "writing": { "type": "object" },
+    "listening": {
+      "type": "object",
+      "required": ["has_listening", "sections"],
+      "additionalProperties": true,
+      "properties": {
+        "sections": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["section", "questions"],
+            "additionalProperties": true,
+            "properties": {
+              "questions": {
+                "type": "array",
+                "minItems": 25,
+                "maxItems": 25,
+                "items": { "$ref": "#/$defs/choiceQuestion" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "reading": {
+      "type": "object",
+      "required": ["section_a", "section_b", "section_c"],
+      "additionalProperties": true,
+      "properties": {
+        "section_a": {
+          "type": "object",
+          "required": ["questions"],
+          "additionalProperties": true,
+          "properties": {
+            "questions": {
+              "type": "array",
+              "minItems": 10,
+              "maxItems": 10,
+              "items": { "$ref": "#/$defs/keyOnlyQuestion" }
+            }
+          }
+        },
+        "section_b": {
+          "type": "object",
+          "required": ["questions"],
+          "additionalProperties": true,
+          "properties": {
+            "questions": {
+              "type": "array",
+              "minItems": 10,
+              "maxItems": 10,
+              "items": { "$ref": "#/$defs/matchingQuestion" }
+            }
+          }
+        },
+        "section_c": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["questions"],
+            "additionalProperties": true,
+            "properties": {
+              "questions": {
+                "type": "array",
+                "minItems": 10,
+                "maxItems": 10,
+                "items": { "$ref": "#/$defs/choiceQuestion" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "translation": { "type": "object" },
+    "validation": { "type": "object" }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "papers": {
+    "2025_06_set1": {
+      "label": "2025 June CET-6 Set 1",
+      "sections": {
+        "reading_section_c": {
+          "label": "Reading Section C",
+          "section_root": "papers/2025_06_set1/reading/section_c",
+          "review_sheet": "papers/2025_06_set1/reading/section_c/analysis/review_sheet.json",
+          "final_explanations": "papers/2025_06_set1/reading/section_c/final/final_explanations.json",
+          "display_json": "papers/2025_06_set1/reading/section_c/display/display.json",
+          "export_markdown": "papers/2025_06_set1/reading/section_c/exports/display.md",
+          "manifest": "papers/2025_06_set1/manifests/source_integrity.json"
+        }
+      }
+    }
+  }
+}

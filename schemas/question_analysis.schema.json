@@ -1,0 +1,186 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CET-6 Question Analysis",
+  "description": "Public-safe schema for one reviewed question analysis item.",
+  "type": "object",
+  "required": ["question_id", "section_type", "source", "question", "analysis"],
+  "additionalProperties": true,
+  "properties": {
+    "project": {
+      "type": "string"
+    },
+    "sample_type": {
+      "type": "string"
+    },
+    "question_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "section_type": {
+      "type": "string",
+      "enum": [
+        "reading_multiple_choice",
+        "reading_paragraph_matching",
+        "listening",
+        "translation",
+        "writing",
+        "other"
+      ]
+    },
+    "source": {
+      "type": "object",
+      "required": ["origin", "copyright_status", "user_provided"],
+      "additionalProperties": true,
+      "properties": {
+        "origin": {
+          "type": "string",
+          "examples": ["mock", "user_import", "private_local_file"]
+        },
+        "copyright_status": {
+          "type": "string",
+          "examples": ["fictional", "user_owned", "user_provided_private_text"]
+        },
+        "user_provided": {
+          "type": "boolean"
+        }
+      }
+    },
+    "question": {
+      "type": "object",
+      "required": ["stem", "answer"],
+      "additionalProperties": true,
+      "properties": {
+        "stem": {
+          "type": "string"
+        },
+        "options": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "answer": {
+          "type": "string"
+        }
+      }
+    },
+    "analysis": {
+      "type": "object",
+      "required": ["evidence", "high_yield_items", "paraphrases", "distractor_traps", "low_vocab_path", "review_status"],
+      "additionalProperties": true,
+      "properties": {
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["text", "evidence_type"],
+            "additionalProperties": true,
+            "properties": {
+              "text": {
+                "type": "string"
+              },
+              "supports_option": {
+                "type": "string"
+              },
+              "evidence_type": {
+                "type": "string",
+                "enum": ["direct", "context", "paragraph_level", "inference"]
+              }
+            }
+          }
+        },
+        "high_yield_items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["text", "role", "why_it_matters"],
+            "additionalProperties": true,
+            "properties": {
+              "text": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string",
+                "examples": ["locator", "evidence_word", "paraphrase_bridge", "logic_signal", "distractor_trigger"]
+              },
+              "why_it_matters": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "paraphrases": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["source_text", "question_or_option_text"],
+            "additionalProperties": true,
+            "properties": {
+              "source_text": {
+                "type": "string"
+              },
+              "question_or_option_text": {
+                "type": "string"
+              },
+              "note": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "logic_signals": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["text", "function"],
+            "additionalProperties": true,
+            "properties": {
+              "text": {
+                "type": "string"
+              },
+              "function": {
+                "type": "string"
+              },
+              "note": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "distractor_traps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["trap_type", "why_it_fails"],
+            "additionalProperties": true,
+            "properties": {
+              "option": {
+                "type": "string"
+              },
+              "trap_type": {
+                "type": "string"
+              },
+              "why_it_is_tempting": {
+                "type": "string"
+              },
+              "why_it_fails": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "low_vocab_path": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "review_status": {
+          "type": "string",
+          "examples": ["candidate_only", "needs_human_review", "approved", "mock_approved"]
+        }
+      }
+    }
+  }
+}
+
